@@ -1,5 +1,6 @@
 package ci.valde.plugins
 
+import ci.valde.plugins.routes.books
 import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.content.*
@@ -11,11 +12,8 @@ import io.ktor.request.*
 
 fun Application.configureRouting() {
 
-
     routing {
-        get("/") {
-            call.respondText("Hello World!")
-        }
+        books()
         // Static feature. Try to access `/static/index.html`
         static("/static") {
             resources("static")

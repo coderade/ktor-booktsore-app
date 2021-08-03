@@ -3,11 +3,7 @@ package ci.valde
 class DataManager {
     var books = ArrayList<Book>()
 
-    fun generateId(): String {
-        return books.size.toString()
-    }
-
-    fun init() {
+    init {
         books.add(Book(generateId(), "Harry Potter 1", "J. K. Rowling", 100.0f))
         books.add(Book(generateId(), "Harry Potter 2", "J. K. Rowling", 80.0f))
         books.add(Book(generateId(), "Harry Potter 3", "J. K. Rowling", 90.0f))
@@ -17,16 +13,14 @@ class DataManager {
         books.add(Book(generateId(), "Harry Potter 7", "J. K. Rowling", 70.0f))
     }
 
-
     fun newBook(book: Book){
         books.add(book)
     }
 
-    fun updateBook(bookId: String, book: Book) : Book?{
+    fun updateBook(book: Book) : Book?{
         val foundBook = books.find{
-            it.id == bookId
+            it.id == book.id
         }
-
 
         foundBook?.title = book.title
         foundBook?.author = book.author
@@ -36,7 +30,7 @@ class DataManager {
 
     }
 
-    fun deleteBook(bookId: String): Book?{
+    fun deleteBook(bookId: String): Book? {
 
         val foundBook = books.find{
             it.id == bookId
@@ -44,5 +38,13 @@ class DataManager {
 
         books.remove(foundBook)
         return foundBook
+    }
+
+    fun getAllBooks(): List<Book>{
+        return books
+    }
+
+    private fun generateId(): String {
+        return books.size.toString()
     }
 }
