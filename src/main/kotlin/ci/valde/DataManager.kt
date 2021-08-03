@@ -13,8 +13,9 @@ class DataManager {
         books.add(Book(generateId(), "Harry Potter 7", "J. K. Rowling", 70.0f))
     }
 
-    fun newBook(book: Book){
-        books.add(book)
+    fun newBook(newBook: Book) : Book{
+        books.add(newBook)
+        return newBook
     }
 
     fun updateBook(book: Book) : Book?{
