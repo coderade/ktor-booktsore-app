@@ -1,16 +1,23 @@
 package ci.valde
 
+import org.slf4j.LoggerFactory
+import kotlin.reflect.full.declaredMemberProperties
+
+
 class DataManager {
+
+    private val logger = LoggerFactory.getLogger(DataManager::class.java)
     var books = ArrayList<Book>()
 
     init {
-        books.add(Book(generateId(), "Harry Potter 1", "J. K. Rowling", 100.0f))
-        books.add(Book(generateId(), "Harry Potter 2", "J. K. Rowling", 80.0f))
-        books.add(Book(generateId(), "Harry Potter 3", "J. K. Rowling", 90.0f))
-        books.add(Book(generateId(), "Harry Potter 4", "J. K. Rowling", 100.0f))
-        books.add(Book(generateId(), "Harry Potter 5", "J. K. Rowling", 110.0f))
-        books.add(Book(generateId(), "Harry Potter 6", "J. K. Rowling", 50.0f))
-        books.add(Book(generateId(), "Harry Potter 7", "J. K. Rowling", 70.0f))
+        books.add(Book(generateId(), "Harry Potter and the Philosopher's Stone", "J. K. Rowling", 100.0f))
+        books.add(Book(generateId(), "Harry Potter and the Chamber of Secrets", "J. K. Rowling", 80.0f))
+        books.add(Book(generateId(), "Harry Potter and the Prisoner of Azkaban", "J. K. Rowling", 90.0f))
+        books.add(Book(generateId(), "Harry Potter and the Goblet of Fire", "J. K. Rowling", 100.0f))
+        books.add(Book(generateId(), "Harry Potter and the Order of the Phoenix", "J. K. Rowling", 110.0f))
+        books.add(Book(generateId(), "Harry Potter and the Half-Blood Prince ", "J. K. Rowling", 50.0f))
+        books.add(Book(generateId(), "Harry Potter and the Deathly Hallows", "J. K. Rowling", 70.0f))
+        books.add(Book(generateId(), "The Lord of the Rings - The Return of the King", "J. R. R. Tolkien", 140.0f))
     }
 
     fun newBook(newBook: Book) : Book{
@@ -45,7 +52,21 @@ class DataManager {
         return books
     }
 
+    fun sortedBooks(sortBy: String, asc: Boolean): List<Book> {
+        val member = Book::class.declaredMemberProperties.find { it.name == sortBy }
+        if (member == null) {
+            logger.info("The field to sort does not exist")
+            return getAllBooks()
+        }
+
+        return if (asc)
+            getAllBooks().sortedBy { member.get(it).toString() }
+        else
+            getAllBooks().sortedByDescending { member.get(it).toString() }
+    }
+
     private fun generateId(): String {
         return books.size.toString()
     }
+
 }
