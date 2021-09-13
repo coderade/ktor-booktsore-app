@@ -1,15 +1,14 @@
 package ci.valde.plugins
 
+import ci.valde.plugins.routes.auth
 import ci.valde.plugins.routes.books
 import io.ktor.routing.*
 import io.ktor.http.*
-import io.ktor.content.*
 import io.ktor.http.content.*
 import io.ktor.features.*
 import io.ktor.application.*
 import io.ktor.locations.*
 import io.ktor.response.*
-import io.ktor.request.*
 
 fun Application.configureRouting() {
 
@@ -19,16 +18,19 @@ fun Application.configureRouting() {
             resources("static")
         }
         install(StatusPages) {
-            exception<AuthenticationException> { cause ->
+            exception<AuthenticationException> {
                 call.respond(HttpStatusCode.Unauthorized)
             }
-            exception<AuthorizationException> { cause ->
+            exception<AuthorizationException> {
                 call.respond(HttpStatusCode.Forbidden)
             }
 
         }
+
         install(Locations){}
+        auth()
         books()
+
     }
 }
 
