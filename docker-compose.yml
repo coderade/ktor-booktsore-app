@@ -4,3 +4,8 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
+  k6 :
+    image: loadimpact/k6:latest
+    network_mode: "host"
+    volumes:
+      - ./scripts:/scripts

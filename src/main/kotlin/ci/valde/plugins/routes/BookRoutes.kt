@@ -18,5 +18,9 @@ fun Route.books() {
         }
     }
 
+    get("/"){
+        call.respond("Bookstore APP")
+    }
+
 
 }
