@@ -10,6 +10,7 @@ import io.ktor.routing.*
 @Location("book/list")
 data class BookListLocation(val sortBy: String, val asc: Boolean)
 
+
 fun Route.books() {
     val dataManager = DataManagerMongoDB()
     authenticate("bookStoreAuth"){

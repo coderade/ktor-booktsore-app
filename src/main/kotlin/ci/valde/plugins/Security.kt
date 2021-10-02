@@ -1,5 +1,7 @@
 package ci.valde.plugins
 
+import ci.valde.Constants
+import ci.valde.plugins.routes.Session
 import io.ktor.auth.*
 import io.ktor.sessions.*
 import io.ktor.application.*
@@ -35,11 +37,8 @@ fun Application.configureSecurity() {
             }
         }
     }
-    data class MySession(val count: Int = 0)
     install(Sessions) {
-        cookie<MySession>("MY_SESSION") {
-            cookie.extensions["SameSite"] = "lax"
-        }
+        cookie<Session>(Constants.COOKIE_NAME.value)
     }
 
 }

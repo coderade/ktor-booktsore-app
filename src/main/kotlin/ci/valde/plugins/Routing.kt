@@ -1,5 +1,6 @@
 package ci.valde.plugins
 
+import ci.valde.plugins.routes.app
 import ci.valde.plugins.routes.auth
 import ci.valde.plugins.routes.books
 import io.ktor.routing.*
@@ -29,6 +30,7 @@ fun Application.configureRouting() {
 
         install(Locations){}
         auth()
+        app()
         books()
 
 
